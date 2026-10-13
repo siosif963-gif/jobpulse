@@ -1,4 +1,5 @@
-import { API_BASE_URL } from "./config.js";
+import { API_BASE_URL, SNAPSHOT_URL } from "./config.js";
+import * as stats from "./static-stats.js";
 
 export class ApiError extends Error {
   constructor(status, code, message) {
@@ -47,11 +48,50 @@ async function request(path, params = {}, signal) {
   }
 }
 
-export const getVacancies = (params, signal) => request("/api/vacancies", params, signal);
-export const getVacancyById = (params, signal) => request(`/api/vacancies/${encodeURIComponent(params.id)}`, {}, signal);
-export const getSalaryTrend = (params, signal) => request("/api/stats/salary-trend", params, signal);
-export const getTechDistribution = (params, signal) => request("/api/stats/tech-distribution", params, signal);
-export const getCityDistribution = (params, signal) => request("/api/stats/city-distribution", params, signal);
-export const getExperienceDistribution = (params, signal) => request("/api/stats/experience-distribution", params, signal);
-export const getSummary = (params, signal) => request("/api/stats/summary", params, signal);
-export const getHealth = (params, signal) => request("/api/health", params, signal);
+// --- режим статичного снимка (без бэкенда) -----------------------------------
+let snapshotPromise = null;
+
+async function loadSnapshot(signal) {
+  if (!snapshotPromise) {
+    snapshotPromise = (async () => {
+      let response;
+      try {
+        response = await fetch(SNAPSHOT_URL, { signal });
+      } catch (err) {
+        if (err && err.name === "AbortError") throw err;
+        throw new ApiError(0, "network_error", "Не удалось загрузить снимок данных");
+      }
+      if (!response.ok) throw new ApiError(response.status, "snapshot_missing", "Снимок данных не найден");
+      return response.json();
+    })();
+    snapshotPromise.catch(() => { snapshotPromise = null; });
+  }
+  return snapshotPromise;
+}
+
+const useSnapshot = API_BASE_URL === null;
+
+function endpoint(path, compute) {
+  return async (params = {}, signal) => {
+    if (!useSnapshot) return request(path(params), params, signal);
+    const snapshot = await loadSnapshot(signal);
+    if (signal && signal.aborted) throw new DOMException("Aborted", "AbortError");
+    return compute(snapshot, params);
+  };
+}
+
+export const getVacancies = endpoint(() => "/api/vacancies", stats.vacancies);
+export const getVacancyById = endpoint(
+  (p) => `/api/vacancies/${encodeURIComponent(p.id)}`,
+  (snapshot, p) => {
+    const found = stats.vacancyById(snapshot, p.id);
+    if (!found) throw new ApiError(404, "not_found", `Вакансия с id=${p.id} не найдена`);
+    return found;
+  }
+);
+export const getSalaryTrend = endpoint(() => "/api/stats/salary-trend", stats.salaryTrend);
+export const getTechDistribution = endpoint(() => "/api/stats/tech-distribution", stats.techDistribution);
+export const getCityDistribution = endpoint(() => "/api/stats/city-distribution", stats.cityDistribution);
+export const getExperienceDistribution = endpoint(() => "/api/stats/experience-distribution", stats.experienceDistribution);
+export const getSummary = endpoint(() => "/api/stats/summary", stats.summary);
+export const getHealth = endpoint(() => "/api/health", (snapshot) => stats.health(snapshot));

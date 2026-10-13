@@ -315,7 +315,9 @@ export function applyFilterFromChart(key, value) {
 
 // --- инициализация ----------------------------------------------------------
 function applyHealth(health) {
-  if (health.status === "no_data") {
+  if (health.snapshot) {
+    showBanner("info", `Демонстрационный режим: статичный снимок данных Habr Career на ${formatDate(health.last_parsing_at)}.`);
+  } else if (health.status === "no_data") {
     showBanner("info", "Данные ещё не собраны. Запустите парсер вручную или дождитесь автоматического запуска.");
   } else if (["failed", "blocked"].includes(health.last_run_status)) {
     showBanner("warning", `Источник временно недоступен. Показаны данные на ${formatDate(health.last_parsing_at)}.`);

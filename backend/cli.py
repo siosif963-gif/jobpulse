@@ -66,6 +66,21 @@ def cmd_clear_demo(_args) -> int:
     return 0
 
 
+def cmd_export_snapshot(args) -> int:
+    import json
+    from pathlib import Path
+
+    from services import vacancy_service
+
+    with database.SessionLocal() as db:
+        snapshot = vacancy_service.export_snapshot(db)
+    path = Path(args.output)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(snapshot, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    print(f"Снимок записан: {path} ({len(snapshot['vacancies'])} вакансий, {path.stat().st_size // 1024} КБ)")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="cli.py", description="JobPulse CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -85,6 +100,10 @@ def build_parser() -> argparse.ArgumentParser:
     p_seed = sub.add_parser("seed-demo", help="создать демо-вакансии (только development)")
     p_seed.add_argument("--count", type=int, default=300)
     p_seed.set_defaults(func=cmd_seed_demo)
+
+    p_export = sub.add_parser("export-snapshot", help="выгрузить вакансии в статичный JSON для GitHub Pages")
+    p_export.add_argument("--output", default="../frontend/data/snapshot.json")
+    p_export.set_defaults(func=cmd_export_snapshot)
 
     p_clear = sub.add_parser("clear-demo", help="удалить демо-вакансии")
     p_clear.set_defaults(func=cmd_clear_demo)
