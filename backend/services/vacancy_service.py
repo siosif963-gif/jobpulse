@@ -91,3 +91,55 @@ def get_vacancy(db: Session, vacancy_id: int) -> Vacancy:
     if vacancy is None:
         raise NotFoundError(f"Вакансия с id={vacancy_id} не найдена")
     return vacancy
+
+
+def export_snapshot(db: Session) -> dict:
+    """Все вакансии + метаданные для статичного снимка (GitHub Pages без бэкенда)."""
+    from datetime import timezone
+
+    from models import ParsingRun
+    from schemas.common import _serialize_utc
+
+    stmt = (
+        select(Vacancy)
+        .order_by(Vacancy.published_at.desc(), Vacancy.id.desc())
+        .options(selectinload(Vacancy.technologies), selectinload(Vacancy.cities))
+    )
+    items = []
+    for v in db.scalars(stmt):
+        items.append(
+            {
+                "id": v.id,
+                "source": v.source,
+                "external_id": v.external_id,
+                "title": v.title,
+                "company": v.company,
+                "salary_min": v.salary_min,
+                "salary_max": v.salary_max,
+                "currency": v.currency,
+                "city": v.city,
+                "cities": [c.city for c in sorted(v.cities, key=lambda c: c.id)],
+                "is_remote": v.is_remote,
+                "experience_level": v.experience_level,
+                "experience_label": constants.EXPERIENCE_LABELS.get(v.experience_level) if v.experience_level else None,
+                "tech_stack": [t.name for t in sorted(v.technologies, key=lambda t: t.id)],
+                "employment": v.employment,
+                "url": v.url,
+                "published_at": _serialize_utc(v.published_at),
+                "parsed_at": _serialize_utc(v.parsed_at),
+                "is_active": v.is_active,
+            }
+        )
+    last_success = db.scalar(
+        select(ParsingRun.finished_at)
+        .where(ParsingRun.status.in_(("success", "partial")), ParsingRun.finished_at.is_not(None))
+        .order_by(ParsingRun.finished_at.desc())
+        .limit(1)
+    )
+    generated = last_success or utcnow()
+    return {
+        "generated_at": _serialize_utc(generated),
+        "last_parsing_at": _serialize_utc(last_success) if last_success else None,
+        "timezone": "Europe/Moscow",
+        "vacancies": items,
+    }
