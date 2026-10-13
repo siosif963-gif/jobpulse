@@ -89,7 +89,7 @@ python cli.py clear-demo                 # удалить демо-ваканс�
 | `ADMIN_TOKEN` | пусто | токен для `POST /api/admin/parse`; пусто = эндпоинт выключен |
 | `HABR_CAREER_URL` | `https://career.habr.com` | базовый URL |
 | `HABR_API_PATH` | `/api/frontend/vacancies` | путь JSON-выдачи |
-| `HTTP_USER_AGENT` | `JobPulse/1.0 (+https://github.com/your-name/jobpulse)` | User-Agent (один, без ротации) |
+| `HTTP_USER_AGENT` | `JobPulse/1.0 (+https://github.com/siosif963-gif/jobpulse)` | User-Agent (один, без ротации) |
 | `REQUEST_TIMEOUT_SECONDS` | `10` | таймаут запроса |
 | `REQUEST_DELAY_MIN_SECONDS` | `1.0` | мин. случайная задержка перед запросом |
 | `REQUEST_DELAY_MAX_SECONDS` | `3.0` | макс. случайная задержка |

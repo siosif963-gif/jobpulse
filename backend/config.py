@@ -20,7 +20,7 @@ class Settings(BaseSettings):
 
     HABR_CAREER_URL: str = "https://career.habr.com"
     HABR_API_PATH: str = "/api/frontend/vacancies"
-    HTTP_USER_AGENT: str = "JobPulse/1.0 (+https://github.com/your-name/jobpulse)"
+    HTTP_USER_AGENT: str = "JobPulse/1.0 (+https://github.com/siosif963-gif/jobpulse)"
     REQUEST_TIMEOUT_SECONDS: float = Field(10, gt=0)
     REQUEST_DELAY_MIN_SECONDS: float = Field(1.0, ge=0)
     REQUEST_DELAY_MAX_SECONDS: float = Field(3.0, ge=0)
