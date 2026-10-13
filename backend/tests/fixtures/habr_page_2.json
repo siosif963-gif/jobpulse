@@ -1,0 +1,221 @@
+{
+  "list": [
+    {
+      "id": 1006,
+      "href": "/vacancies/1006",
+      "title": "Аналитик данных",
+      "remoteWork": true,
+      "salaryQualification": {
+        "title": "x",
+        "href": "/vacancies?qid=4"
+      },
+      "qualification": null,
+      "publishedDate": {
+        "date": "2026-10-06T18:57:01+03:00",
+        "title": "6 октября"
+      },
+      "company": {
+        "id": 1007,
+        "alias_name": "c",
+        "href": "/companies/c",
+        "title": "Эко Дата"
+      },
+      "employment": "full_time",
+      "salary": {
+        "from": null,
+        "to": null,
+        "currency": null,
+        "formatted": ""
+      },
+      "skills": [
+        {
+          "title": "Python",
+          "href": "/s"
+        },
+        {
+          "title": "SQL",
+          "href": "/s"
+        }
+      ],
+      "locations": null,
+      "archived": false,
+      "predictedSalary": {
+        "from": 999000,
+        "to": 999999,
+        "currency": "rur",
+        "formatted": "999 000 ₽"
+      }
+    },
+    {
+      "id": 1007,
+      "href": "/vacancies/1007",
+      "title": "QA инженер",
+      "remoteWork": false,
+      "salaryQualification": {
+        "title": "x",
+        "href": "/vacancies?qid=4"
+      },
+      "qualification": "Middle",
+      "publishedDate": {
+        "date": "2026-10-06T18:57:01+03:00",
+        "title": "6 октября"
+      },
+      "company": {
+        "id": 1008,
+        "alias_name": "c",
+        "href": "/companies/c",
+        "title": "Зенит Диджитал"
+      },
+      "employment": "full_time",
+      "salary": {
+        "from": null,
+        "to": null,
+        "currency": null,
+        "formatted": "от 150 000 ₽"
+      },
+      "skills": [
+        {
+          "title": "Python",
+          "href": "/s"
+        }
+      ],
+      "locations": [
+        {
+          "title": "Москва",
+          "href": "/l"
+        },
+        {
+          "title": "Казань",
+          "href": "/l"
+        },
+        {
+          "title": "Минск",
+          "href": "/l"
+        }
+      ],
+      "archived": false,
+      "predictedSalary": {
+        "from": 999000,
+        "to": 999999,
+        "currency": "rur",
+        "formatted": "999 000 ₽"
+      }
+    },
+    {
+      "id": 1001,
+      "href": "/vacancies/1001",
+      "title": "Python backend",
+      "remoteWork": false,
+      "salaryQualification": {
+        "title": "x",
+        "href": "/vacancies?qid=4"
+      },
+      "qualification": "Middle",
+      "publishedDate": {
+        "date": "2026-10-06T18:57:01+03:00",
+        "title": "6 октября"
+      },
+      "company": {
+        "id": 1002,
+        "alias_name": "c",
+        "href": "/companies/c",
+        "title": "Альфа Софт"
+      },
+      "employment": "full_time",
+      "salary": {
+        "from": 200000,
+        "to": 300000,
+        "currency": "rur",
+        "formatted": "200 000 – 300 000 ₽"
+      },
+      "skills": [
+        {
+          "title": "Python",
+          "href": "/s"
+        },
+        {
+          "title": "PostgreSQL",
+          "href": "/s"
+        }
+      ],
+      "locations": [
+        {
+          "title": "Москва",
+          "href": "/l"
+        },
+        {
+          "title": "Санкт-Петербург",
+          "href": "/l"
+        }
+      ],
+      "archived": false,
+      "predictedSalary": {
+        "from": 999000,
+        "to": 999999,
+        "currency": "rur",
+        "formatted": "999 000 ₽"
+      }
+    },
+    {
+      "id": 1008,
+      "href": "/vacancies/1008",
+      "remoteWork": false,
+      "qualification": "Junior",
+      "skills": [],
+      "locations": []
+    },
+    {
+      "id": 1009,
+      "href": "/vacancies/1009",
+      "title": "Системный администратор",
+      "remoteWork": false,
+      "salaryQualification": {
+        "title": "x",
+        "href": "/vacancies?qid=4"
+      },
+      "qualification": "Intern",
+      "publishedDate": {
+        "date": "2026-10-06T18:57:01+03:00",
+        "title": "6 октября"
+      },
+      "company": {
+        "id": 1010,
+        "alias_name": "c",
+        "href": "/companies/c",
+        "title": "Ипсилон"
+      },
+      "employment": "full_time",
+      "salary": {
+        "from": 90000,
+        "to": 120000,
+        "currency": "rur",
+        "formatted": ""
+      },
+      "skills": [
+        {
+          "title": "Linux",
+          "href": "/s"
+        }
+      ],
+      "locations": [
+        {
+          "title": "Екатеринбург",
+          "href": "/l"
+        }
+      ],
+      "archived": false,
+      "predictedSalary": {
+        "from": 999000,
+        "to": 999999,
+        "currency": "rur",
+        "formatted": "999 000 ₽"
+      }
+    }
+  ],
+  "meta": {
+    "totalResults": 10,
+    "perPage": 25,
+    "currentPage": 2,
+    "totalPages": 2
+  }
+}

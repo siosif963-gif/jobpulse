@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JobPulse — аналитика рынка IT-вакансий</title>
+  <script>
+    (function () {
+      var theme = "light";
+      try {
+        var saved = localStorage.getItem("jobpulse-theme");
+        if (saved === "dark" || saved === "light") theme = saved;
+      } catch (e) { /* localStorage недоступен */ }
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-header__title">
+      <h1>JobPulse</h1>
+      <p>Аналитика рынка IT-вакансий</p>
+    </div>
+    <button type="button" id="theme-toggle" class="btn btn--ghost" aria-pressed="false" aria-label="Включить тёмную тему">Тёмная тема</button>
+  </header>
+
+  <div id="status-banner" class="banner" role="status" hidden></div>
+
+  <main class="container">
+    <form id="filters-form" class="filters" aria-label="Фильтры">
+      <div class="field">
+        <label for="filter-tech">Технология</label>
+        <input id="filter-tech" name="tech" type="text" list="tech-options" autocomplete="off" placeholder="Например, Python">
+        <datalist id="tech-options"></datalist>
+      </div>
+      <div class="field">
+        <label for="filter-city">Город</label>
+        <select id="filter-city" name="city">
+          <option value="">Все города</option>
+          <option value="__remote__">Удалёнка</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="filter-experience">Опыт</label>
+        <select id="filter-experience" name="experience_level">
+          <option value="">Любой опыт</option>
+          <option value="intern">Стажёр (Intern)</option>
+          <option value="junior">Junior</option>
+          <option value="middle">Middle</option>
+          <option value="senior">Senior</option>
+          <option value="lead">Lead</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="filter-currency">Валюта</label>
+        <select id="filter-currency" name="currency">
+          <option value="RUR">RUR ₽</option>
+          <option value="USD">USD $</option>
+          <option value="EUR">EUR €</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="filter-days">Период анализа</label>
+        <select id="filter-days" name="days">
+          <option value="30">30 дней</option>
+          <option value="90">90 дней</option>
+          <option value="180">180 дней</option>
+          <option value="365">365 дней</option>
+        </select>
+      </div>
+      <div class="field field--wide">
+        <label for="filter-keyword">Поиск в таблице (название или компания)</label>
+        <input id="filter-keyword" name="keyword" type="search" maxlength="100" autocomplete="off">
+      </div>
+      <div class="filters__actions">
+        <button type="submit" id="apply-filters" class="btn btn--primary">Применить</button>
+        <button type="button" id="reset-filters" class="btn">Сбросить</button>
+      </div>
+    </form>
+
+    <section id="summary" class="summary" aria-label="Сводка">
+      <article class="card stat">
+        <h2 class="stat__label">Всего вакансий</h2>
+        <p class="stat__value" id="summary-total">—</p>
+      </article>
+      <article class="card stat">
+        <h2 class="stat__label">Средняя зарплата</h2>
+        <p class="stat__value" id="summary-avg">—</p>
+        <p class="stat__note" id="summary-avg-note"></p>
+      </article>
+      <article class="card stat">
+        <h2 class="stat__label">Медианная зарплата</h2>
+        <p class="stat__value" id="summary-median">—</p>
+        <p class="stat__note" id="summary-median-note"></p>
+      </article>
+      <article class="card stat">
+        <h2 class="stat__label">Топ технология</h2>
+        <p class="stat__value" id="summary-top-tech">—</p>
+      </article>
+    </section>
+
+    <section class="charts" aria-label="Графики">
+      <article class="card chart-card chart-card--trend" id="trend-card">
+        <div class="card__head">
+          <h2>Динамика зарплат</h2>
+          <div class="segmented" id="trend-period" role="group" aria-label="Группировка по периодам">
+            <button type="button" data-period="day" aria-pressed="false">По дням</button>
+            <button type="button" data-period="week" aria-pressed="true">По неделям</button>
+            <button type="button" data-period="month" aria-pressed="false">По месяцам</button>
+          </div>
+        </div>
+        <div class="chart-wrap chart-wrap--trend">
+          <canvas id="chart-trend" role="img" aria-label="Динамика зарплат: данные загружаются"></canvas>
+        </div>
+      </article>
+
+      <article class="card chart-card" id="tech-card">
+        <div class="card__head"><h2>Топ технологий</h2></div>
+        <div class="chart-wrap">
+          <canvas id="chart-tech" role="img" aria-label="Топ технологий: данные загружаются"></canvas>
+        </div>
+      </article>
+
+      <article class="card chart-card" id="city-card">
+        <div class="card__head"><h2>Города</h2></div>
+        <div class="chart-wrap">
+          <canvas id="chart-city" role="img" aria-label="Распределение по городам: данные загружаются"></canvas>
+        </div>
+      </article>
+
+      <article class="card chart-card chart-card--experience" id="experience-card">
+        <div class="card__head"><h2>Уровень опыта</h2></div>
+        <div class="chart-wrap">
+          <canvas id="chart-experience" role="img" aria-label="Распределение по уровню опыта: данные загружаются"></canvas>
+        </div>
+      </article>
+    </section>
+
+    <section id="vacancies-section" class="card vacancies" aria-labelledby="vacancies-title">
+      <div class="card__head">
+        <h2 id="vacancies-title">Свежие вакансии</h2>
+        <div class="table-controls">
+          <label class="inline-field" for="table-sort">
+            <span class="visually-hidden">Сортировка</span>
+            <select id="table-sort">
+              <option value="published_at:desc">Сначала новые</option>
+              <option value="salary_min:asc">Зарплата по возрастанию</option>
+              <option value="salary_min:desc">Зарплата по убыванию</option>
+            </select>
+          </label>
+          <label class="inline-field" for="page-size">
+            <span class="visually-hidden">Вакансий на странице</span>
+            <select id="page-size">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="vacancies-table">
+          <caption class="visually-hidden">Список свежих вакансий</caption>
+          <thead>
+            <tr>
+              <th scope="col">Вакансия</th>
+              <th scope="col">Компания</th>
+              <th scope="col">Город</th>
+              <th scope="col">Зарплата</th>
+              <th scope="col">Опубликована</th>
+            </tr>
+          </thead>
+          <tbody id="vacancies-body"></tbody>
+        </table>
+      </div>
+      <nav id="pagination" class="pagination" aria-label="Пагинация"></nav>
+    </section>
+  </main>
+
+  <div id="toast-container" aria-live="polite"></div>
+
+  <footer class="app-footer">
+    <p>Данные: Habr Career. Обновлено: <span id="footer-updated">—</span></p>
+  </footer>
+</body>
+</html>

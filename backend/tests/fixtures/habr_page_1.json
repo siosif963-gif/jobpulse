@@ -1,0 +1,273 @@
+{
+  "list": [
+    {
+      "id": 1001,
+      "href": "/vacancies/1001",
+      "title": "Python backend",
+      "remoteWork": false,
+      "salaryQualification": {
+        "title": "x",
+        "href": "/vacancies?qid=4"
+      },
+      "qualification": "Middle",
+      "publishedDate": {
+        "date": "2026-10-06T18:57:01+03:00",
+        "title": "6 октября"
+      },
+      "company": {
+        "id": 1002,
+        "alias_name": "c",
+        "href": "/companies/c",
+        "title": "Альфа Софт"
+      },
+      "employment": "full_time",
+      "salary": {
+        "from": 200000,
+        "to": 300000,
+        "currency": "rur",
+        "formatted": "200 000 – 300 000 ₽"
+      },
+      "skills": [
+        {
+          "title": "Python",
+          "href": "/s"
+        },
+        {
+          "title": "PostgreSQL",
+          "href": "/s"
+        },
+        {
+          "title": "python",
+          "href": "/s"
+        }
+      ],
+      "locations": [
+        {
+          "title": "Москва",
+          "href": "/l"
+        },
+        {
+          "title": "Санкт-Петербург",
+          "href": "/l"
+        }
+      ],
+      "archived": false,
+      "predictedSalary": {
+        "from": 999000,
+        "to": 999999,
+        "currency": "rur",
+        "formatted": "999 000 ₽"
+      }
+    },
+    {
+      "id": 1002,
+      "href": "/vacancies/1002",
+      "title": "Frontend разработчик",
+      "remoteWork": false,
+      "salaryQualification": {
+        "title": "x",
+        "href": "/vacancies?qid=4"
+      },
+      "qualification": "Junior",
+      "publishedDate": {
+        "date": "2026-10-06T18:57:01+03:00",
+        "title": "6 октября"
+      },
+      "company": {
+        "id": 1003,
+        "alias_name": "c",
+        "href": "/companies/c",
+        "title": "Бета Системс"
+      },
+      "employment": "full_time",
+      "salary": {
+        "from": null,
+        "to": null,
+        "currency": null,
+        "formatted": ""
+      },
+      "skills": [
+        {
+          "title": "JavaScript",
+          "href": "/s"
+        },
+        {
+          "title": "React",
+          "href": "/s"
+        }
+      ],
+      "locations": [
+        {
+          "title": "Казань",
+          "href": "/l"
+        }
+      ],
+      "archived": false,
+      "predictedSalary": {
+        "from": 999000,
+        "to": 999999,
+        "currency": "rur",
+        "formatted": "999 000 ₽"
+      }
+    },
+    {
+      "id": 1003,
+      "href": "/vacancies/1003",
+      "title": "Java developer",
+      "remoteWork": false,
+      "salaryQualification": {
+        "title": "x",
+        "href": "/vacancies?qid=4"
+      },
+      "qualification": "Senior",
+      "publishedDate": {
+        "date": "2026-10-06T18:57:01+03:00",
+        "title": "6 октября"
+      },
+      "company": {
+        "id": 1004,
+        "alias_name": "c",
+        "href": "/companies/c",
+        "title": "Вектор Лаб"
+      },
+      "employment": "full_time",
+      "salary": {
+        "from": 250000,
+        "to": null,
+        "currency": "rur",
+        "formatted": "от 250 000 ₽"
+      },
+      "skills": [
+        {
+          "title": "Java",
+          "href": "/s"
+        },
+        {
+          "title": "Spring",
+          "href": "/s"
+        }
+      ],
+      "locations": [
+        {
+          "title": "Москва",
+          "href": "/l"
+        }
+      ],
+      "archived": false,
+      "predictedSalary": {
+        "from": 999000,
+        "to": 999999,
+        "currency": "rur",
+        "formatted": "999 000 ₽"
+      }
+    },
+    {
+      "id": 1004,
+      "href": "/vacancies/1004",
+      "title": "Go инженер",
+      "remoteWork": false,
+      "salaryQualification": {
+        "title": "x",
+        "href": "/vacancies?qid=4"
+      },
+      "qualification": "Junior",
+      "publishedDate": {
+        "date": "2026-10-06T18:57:01+03:00",
+        "title": "6 октября"
+      },
+      "company": {
+        "id": 1005,
+        "alias_name": "c",
+        "href": "/companies/c",
+        "title": "Горизонт IT"
+      },
+      "employment": "full_time",
+      "salary": {
+        "from": null,
+        "to": 110000,
+        "currency": "rur",
+        "formatted": "110 000 ₽"
+      },
+      "skills": [
+        {
+          "title": "Go",
+          "href": "/s"
+        },
+        {
+          "title": "Docker",
+          "href": "/s"
+        }
+      ],
+      "locations": [
+        {
+          "title": "Новосибирск",
+          "href": "/l"
+        }
+      ],
+      "archived": false,
+      "predictedSalary": {
+        "from": 999000,
+        "to": 999999,
+        "currency": "rur",
+        "formatted": "999 000 ₽"
+      }
+    },
+    {
+      "id": 1005,
+      "href": "/vacancies/1005",
+      "title": "DevOps engineer",
+      "remoteWork": true,
+      "salaryQualification": {
+        "title": "x",
+        "href": "/vacancies?qid=4"
+      },
+      "qualification": "Lead",
+      "publishedDate": {
+        "date": "2026-10-06T18:57:01+03:00",
+        "title": "6 октября"
+      },
+      "company": {
+        "id": 1006,
+        "alias_name": "c",
+        "href": "/companies/c",
+        "title": "Дельта Тех"
+      },
+      "employment": "full_time",
+      "salary": {
+        "from": 3000,
+        "to": 5000,
+        "currency": "usd",
+        "formatted": "3 000 – 5 000 $"
+      },
+      "skills": [
+        {
+          "title": "Kubernetes",
+          "href": "/s"
+        },
+        {
+          "title": "Docker",
+          "href": "/s"
+        }
+      ],
+      "locations": [
+        {
+          "title": "Москва",
+          "href": "/l"
+        }
+      ],
+      "archived": false,
+      "predictedSalary": {
+        "from": 999000,
+        "to": 999999,
+        "currency": "rur",
+        "formatted": "999 000 ₽"
+      }
+    }
+  ],
+  "meta": {
+    "totalResults": 10,
+    "perPage": 25,
+    "currentPage": 1,
+    "totalPages": 2
+  }
+}

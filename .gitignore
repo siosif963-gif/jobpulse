@@ -1,0 +1,12 @@
+*.db
+*.db-wal
+*.db-shm
+logs/
+.env
+__pycache__/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+.vscode/
