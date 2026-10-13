@@ -4,6 +4,16 @@
 
 Помогает ответить на вопросы: «Растут ли зарплаты Python-разработчиков?», «Где больше вакансий для Middle — Москва или удалёнка?», «Какие технологии сейчас в топе?».
 
+## Демо
+
+**Живая версия:** https://siosif963-gif.github.io/jobpulse/ (статичный снимок реальных данных Habr Career, бэкенд не нужен).
+
+| Светлая тема | Тёмная тема |
+|---|---|
+| ![Дашборд, светлая тема](docs/screenshots/dashboard-light.png) | ![Дашборд, тёмная тема](docs/screenshots/dashboard-dark.png) |
+
+<p align="center"><img src="docs/screenshots/mobile.png" alt="Мобильная версия" width="320"></p>
+
 ## 1. Архитектура
 
 ```
