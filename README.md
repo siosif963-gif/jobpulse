@@ -8,7 +8,11 @@
 
 ## Демо
 
-**Живая версия:** https://siosif963-gif.github.io/jobpulse/ (статичный снимок реальных данных Habr Career, бэкенд не нужен).
+**Живая версия:** https://siosif963-gif.github.io/jobpulse/ (снимок реальных данных Habr Career, бэкенд не нужен).
+
+![Данные обновлены](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fsiosif963-gif%2Fjobpulse%2Fmain%2Ffrontend%2Fdata%2Fmeta.json&query=%24.updated&label=%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D1%8B&color=2f5bea)
+
+Данные на сайте **обновляются еженедельно** (ночь на понедельник по Москве): workflow [`refresh-snapshot.yml`](.github/workflows/refresh-snapshot.yml) делает полный сбор, выгружает снимок в `frontend/data/` и запускает деплой Pages. Дата последнего обновления берётся из `frontend/data/meta.json` и показана в бейдже выше и в баннере на сайте. Запустить обновление вручную можно во вкладке Actions → *Refresh demo snapshot* → *Run workflow*.
 
 | Светлая тема | Тёмная тема |
 |---|---|
