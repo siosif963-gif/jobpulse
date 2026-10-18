@@ -84,6 +84,21 @@ python -m http.server 8080
 
 Откройте `http://localhost:8080`. API и Swagger: `http://localhost:8000/docs`.
 
+### Запуск бэкенда в Docker
+
+Нужен Docker Desktop (или Docker Engine с Compose v2).
+
+```bash
+docker compose up --build
+```
+
+- API: `http://localhost:8000` (проверка: `http://localhost:8000/api/health`, Swagger: `/docs`).
+- База SQLite и логи лежат в именованном volume `jobpulse-data` (`/data` в контейнере) и переживают перезапуск и пересборку контейнера. Полностью удалить данные: `docker compose down -v`.
+- Настройки берутся из `backend/.env` (если файл есть) и переменных окружения; `DATABASE_URL` и `LOG_DIR` в контейнере всегда указывают на volume. По умолчанию `APP_ENV=production` (команда `seed-demo` отключена); для демо-данных: `APP_ENV=development docker compose up --build`, затем `docker compose exec api python cli.py seed-demo`.
+- Первый сбор данных стартует сам через 10 секунд, если БД пуста (`PARSING_RUN_ON_STARTUP_IF_EMPTY`). Вручную: `docker compose exec api python cli.py parse --force`.
+- Контейнер запускается с одним воркером (`--workers 1`): так планировщик не дублируется.
+- Фронтенд для локальной работы: `cd frontend && python3 -m http.server 8080` (на localhost он обращается к API на порту 8000).
+
 ## 5. Первый сбор данных
 
 ```bash

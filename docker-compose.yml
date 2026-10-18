@@ -1,0 +1,19 @@
+# Бэкенд JobPulse в контейнере. БД и логи хранятся в именованном volume и переживают перезапуск.
+services:
+  api:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: ./backend/.env
+        required: false
+    environment:
+      APP_ENV: ${APP_ENV:-production}
+      DATABASE_URL: sqlite:////data/database.db
+      LOG_DIR: /data/logs
+    volumes:
+      - jobpulse-data:/data
+    restart: unless-stopped
+
+volumes:
+  jobpulse-data:
